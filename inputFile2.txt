@@ -1,0 +1,31 @@
+defmodule Dfa do
+    def ex1 do
+      { 0, [3],
+      [
+        {0, ?a, 1},
+        {0, ?b, 0},
+        {1, ?a, 1},
+        {1, ?b, 2},
+        {2, ?a, 1},
+        {2, ?b, 3},
+        {3, ?a, 1},
+        {3, ?b, 0}
+    
+        
+      }
+    end
+  
+  
+    def simulate(_delta, f, state, []), do: state in f
+  
+  
+    def simulate(delta, f, state, input) do
+      {_, _, state2} = Enum.filter(delta, fn x ->
+        {initial, trans, _final} = x
+        initial == state && hd(input) == trans
+      end) |> hd
+      simulate(delta, f, state2, tl(input))
+  
+    end
+  
+  end
