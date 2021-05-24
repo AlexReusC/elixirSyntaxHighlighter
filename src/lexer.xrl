@@ -11,7 +11,7 @@ A = [A-Za-z0-9@_]
 ALIASES = [A-Z-a-z0-9_]
 
 
-DELIMITERS = \[|\]|\{|\}|(<<)|(>>)|(\%\{)
+DELIMITERS = \[|\]|\{|\}|(<<)|(>>)|(\%\{)|\(|\)
 OPERATORS = =|&|@|\-|\*|\\|!|\^|~~~|\+|\++|--|\.\.|<>|\+++|---|\^\^\^|<|>|<=|>=|==|!=|=~|===|!==|&&|&&&|\|\||\|\|\||=>|\||::|\|>|<<<|>>>|<<~|,|\.
 
 UNICODE = [!-𯨟]
@@ -61,7 +61,6 @@ _{A}*(\!|\?)? : {token, {hidden_variable, TokenLine, TokenChars}}.
 
 [\s]+          : {token, {skip, TokenLine, TokenChars}}.
 (\r\n)|\n|\r         : {token, {newline, TokenLine, TokenChars}}.
-[\(\)]      : {token, {list_to_atom(TokenChars), TokenLine, TokenChars}}.
 
 
 Erlang code.
