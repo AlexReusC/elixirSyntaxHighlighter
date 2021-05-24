@@ -1,1 +1,6 @@
-\\a
+defmodule Strings do
+  def greet("Hello " <> name = str) do
+    IO.puts str
+    IO.puts "Good bye " <> name
+  end
+end

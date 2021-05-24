@@ -24,34 +24,34 @@ RESERVED_GENERAL = require|defmodule|def|alias|import
 
 Rules.
 
-{RESERVED_ATOM} : {token, {reservedAtom, TokenLine, TokenChars}}.
-{RESERVED_OPERATOR} : {token, {reservedOperator, TokenLine, TokenChars}}.
-{RESERVED_FN} : {token, {reservedFn, TokenLine, TokenChars}}.
-{RESERVED_BLOCK} : {token, {reservedBlock, TokenLine, TokenChars}}.
-{RESERVED_GENERAL} : {token, {reservedGeneral, TokenLine, TokenChars}}.
+{RESERVED_ATOM} : {token, {reserved_atom, TokenLine, TokenChars}}.
+{RESERVED_OPERATOR} : {token, {reserved_operator, TokenLine, TokenChars}}.
+{RESERVED_FN} : {token, {reserved_fn, TokenLine, TokenChars}}.
+{RESERVED_BLOCK} : {token, {reserved_block, TokenLine, TokenChars}}.
+{RESERVED_GENERAL} : {token, {reserved_general, TokenLine, TokenChars}}.
 
 {D}+(\_{D}+)*\.{D}+(\_{D})*((e|E)10)? : {token, {float, TokenLine, TokenChars}}.
 {D}+(\_{D}+)* : {token, {integer, TokenLine, TokenChars}}.
 0x{H}+(\_{H}+)* :  {token, {hexadecimal, TokenLine, TokenChars}}.
 0o{O}+(\_{O}+)* :  {token, {octal, TokenLine, TokenChars}}.
 0b{B}+(\_{B}+)* :  {token, {binary, TokenLine, TokenChars}}.
-\?{UNICODE} : {token, {unicodePoint, TokenLine, TokenChars}}.
+\?{UNICODE} : {token, {unicode_point, TokenLine, TokenChars}}.
 
-:{L}{A}*(\!|\?)? : {token, {atom, TokenLine, TokenChars}}.
-:'([^'])*' : {token, {singleQuotedAtom, TokenLine, TokenChars}}.
-:"([^"])*" : {token, {doubleQuotedAtom, TokenLine, TokenChars}}.
-{L}{A}*(\!|\?)?: : {token, {keywordAtom, TokenLine, TokenChars}}.
+:(({L}{A}*(\!|\?)?)|{RESERVED_OPERATOR}|{OPERATORS}) : {token, {atom, TokenLine, TokenChars}}.
+:'([^'])*' : {token, {single_quoted_atom, TokenLine, TokenChars}}.
+:"([^"])*" : {token, {double_quoted_atom, TokenLine, TokenChars}}.
+{L}{A}*(\!|\?)?: : {token, {keyword_atom, TokenLine, TokenChars}}.
 
 "([^"]|(\\"))*" : {token, {string, TokenLine, TokenChars}}.
-"""([^"]|(\\")|\n)*""" : {token, {multilineString, TokenLine, TokenChars}}.
+"""([^"]|(\\")|\n)*""" : {token, {multiline_string, TokenLine, TokenChars}}.
 
 '([^']|(\\'))*' : {token, {charlist, TokenLine, TokenChars}}.
-'''([^'|(\\')|\n])*''' : {token, {multilineCharlist, TokenLine, TokenChars}}.
+'''([^'|(\\')|\n])*''' : {token, {multiline_charlist, TokenLine, TokenChars}}.
 
 {DELIMITERS} : {token, {delimiter, TokenLine, TokenChars}}.
 
 {LC}{A}*(\!|\?)? : {token, {variable, TokenLine, TokenChars}}.
-_{A}*(\!|\?)? : {token, {hiddenVariable, TokenLine, TokenChars}}.
+_{A}*(\!|\?)? : {token, {hidden_variable, TokenLine, TokenChars}}.
 
 {OPERATORS} : {token, {operator, TokenLine, TokenChars}}.
 
