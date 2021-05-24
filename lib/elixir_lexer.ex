@@ -65,7 +65,7 @@ end
     output_text = File.read!(input_file) 
     |> to_charlist 
     |> :lexer.string 
-    |> elem(1) 
+    |> elem(1) |> IO.inspect
     |> add_tags 
     output_text = "<html><head><link rel='stylesheet' href='styles.css'></head><code>#{output_text}</code></html>"
     # IO.inspect(output_text)
