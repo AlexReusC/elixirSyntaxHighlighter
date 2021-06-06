@@ -1,0 +1,108 @@
+<html><head><link rel='stylesheet' href='styles.css'></head><code><a style='color:violet;'>defmodule</a><a> </a><a style='color:gold;'>BrothTest</a><a style='color:red;'>.</a><a style='color:gold;'>User</a><a style='color:red;'>.</a><a style='color:gold;'>AdminUpdateTest</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>  </a><a style='color:sandybrown;'>use</a><a> </a><a style='color:gold;'>ExUnit</a><a style='color:red;'>.</a><a style='color:gold;'>Case</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>async:</a><a> </a><a style='color:#2a6edb;'>true</a><div>
+</div><a>  </a><a style='color:sandybrown;'>use</a><a> </a><a style='color:gold;'>KousaTest</a><a style='color:red;'>.</a><a style='color:gold;'>Support</a><a style='color:red;'>.</a><a style='color:gold;'>EctoSandbox</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Schemas</a><a style='color:red;'>.</a><a style='color:gold;'>User</a><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Users</a><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>BrothTest</a><a style='color:red;'>.</a><a style='color:gold;'>WsClient</a><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>BrothTest</a><a style='color:red;'>.</a><a style='color:gold;'>WsClientFactory</a><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>KousaTest</a><a style='color:red;'>.</a><a style='color:gold;'>Support</a><a style='color:red;'>.</a><a style='color:gold;'>Factory</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>require</a><a> </a><a style='color:gold;'>WsClient</a><div>
+</div><div>
+</div><a>  </a><a style='color:red;'>@</a><a style='color:sandybrown;'>ben_github_id</a><a> </a><a style='color:gold;'>Application</a><a style='color:red;'>.</a><a style='color:sandybrown;'>compile_env!</a><a style='color:red;'>(</a><a style='color:aquamarine;'>:kousa</a><a style='color:red;'>,</a><a> </a><a style='color:aquamarine;'>:ben_github_id</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>  </a><a style='color:sandybrown;'>setup</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>user</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>Factory</a><a style='color:red;'>.</a><a style='color:sandybrown;'>create</a><a style='color:red;'>(</a><a style='color:gold;'>User</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>githubId:</a><a> </a><a style='color:red;'>@</a><a style='color:sandybrown;'>ben_github_id</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:sandybrown;'>staff_user</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>Factory</a><a style='color:red;'>.</a><a style='color:sandybrown;'>create</a><a style='color:red;'>(</a><a style='color:gold;'>User</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>    </a><a style='color:sandybrown;'>client_ws</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>WsClientFactory</a><a style='color:red;'>.</a><a style='color:sandybrown;'>create_client_for</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:sandybrown;'>staff_client_ws</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>WsClientFactory</a><a style='color:red;'>.</a><a style='color:sandybrown;'>create_client_for</a><a style='color:red;'>(</a><a style='color:sandybrown;'>staff_user</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>    </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ok</a><a style='color:red;'>,</a><div>
+</div><a>     </a><a style='color:#2a6edb;'>user:</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>staff_user:</a><a> </a><a style='color:sandybrown;'>staff_user</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>staff_client_ws:</a><a> </a><a style='color:sandybrown;'>staff_client_ws</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>client_ws:</a><a> </a><a style='color:sandybrown;'>client_ws</a><a style='color:red;'>}</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:sandybrown;'>describe</a><a> </a><a style='color:greenyellow;'>"the websocket user:admin_update operation"</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>test</a><a> </a><a style='color:greenyellow;'>"doesn't work for not-ben awad"</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>t</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:sandybrown;'>ref</a><a> </a><a style='color:red;'>=</a><div>
+</div><a>        </a><a style='color:gold;'>WsClient</a><a style='color:red;'>.</a><a style='color:sandybrown;'>send_call</a><a style='color:red;'>(</a><a style='color:sandybrown;'>t</a><a style='color:red;'>.</a><a style='color:sandybrown;'>staff_client_ws</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"user:admin_update"</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>%{</a><div>
+</div><a>          </a><a style='color:greenyellow;'>"id"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:sandybrown;'>t</a><a style='color:red;'>.</a><a style='color:sandybrown;'>staff_user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>,</a><div>
+</div><a>          </a><a style='color:greenyellow;'>"user"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:red;'>%{</a><div>
+</div><a>            </a><a style='color:greenyellow;'>"staff"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:#2a6edb;'>true</a><a style='color:red;'>,</a><div>
+</div><a>            </a><a style='color:greenyellow;'>"contributions"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:#2a6edb;'>100</a><div>
+</div><a>          </a><a style='color:red;'>}</a><div>
+</div><a>        </a><a style='color:red;'>}</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>      </a><a style='color:gold;'>WsClient</a><a style='color:red;'>.</a><a style='color:sandybrown;'>assert_error</a><a style='color:red;'>(</a><a style='color:greenyellow;'>"user:admin_update"</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>ref</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>%{</a><a style='color:greenyellow;'>"message"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:greenyellow;'>"not authorized"</a><a style='color:red;'>}</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>    </a><a style='color:sandybrown;'>test</a><a> </a><a style='color:greenyellow;'>"works for ben awad"</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>t</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:sandybrown;'>ref</a><a> </a><a style='color:red;'>=</a><div>
+</div><a>        </a><a style='color:gold;'>WsClient</a><a style='color:red;'>.</a><a style='color:sandybrown;'>send_call</a><a style='color:red;'>(</a><a style='color:sandybrown;'>t</a><a style='color:red;'>.</a><a style='color:sandybrown;'>client_ws</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"user:admin_update"</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>%{</a><div>
+</div><a>          </a><a style='color:greenyellow;'>"id"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:sandybrown;'>t</a><a style='color:red;'>.</a><a style='color:sandybrown;'>staff_user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>,</a><div>
+</div><a>          </a><a style='color:greenyellow;'>"user"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:red;'>%{</a><div>
+</div><a>            </a><a style='color:greenyellow;'>"staff"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:#2a6edb;'>true</a><a style='color:red;'>,</a><div>
+</div><a>            </a><a style='color:greenyellow;'>"contributions"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:#2a6edb;'>100</a><div>
+</div><a>          </a><a style='color:red;'>}</a><div>
+</div><a>        </a><a style='color:red;'>}</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>      </a><a style='color:gold;'>WsClient</a><a style='color:red;'>.</a><a style='color:sandybrown;'>assert_reply</a><a style='color:red;'>(</a><a style='color:greenyellow;'>"user:admin_update:reply"</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>ref</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>%{</a><div>
+</div><a>        </a><a style='color:greenyellow;'>"staff"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:#2a6edb;'>true</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:greenyellow;'>"contributions"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:#2a6edb;'>100</a><div>
+</div><a>      </a><a style='color:red;'>}</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>      </a><a style='color:grey;'># check that the user has been updated.</a><div>
+</div><a>      </a><a style='color:sandybrown;'>assert</a><a> </a><a style='color:red;'>%{</a><a style='color:#2a6edb;'>staff:</a><a> </a><a style='color:#2a6edb;'>true</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>contributions:</a><a> </a><a style='color:#2a6edb;'>100</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>Users</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get_by_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>t</a><a style='color:red;'>.</a><a style='color:sandybrown;'>staff_user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>    </a><a style='color:sandybrown;'>test</a><a> </a><a style='color:greenyellow;'>"staff can update staff"</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>t</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:sandybrown;'>staff</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>Factory</a><a style='color:red;'>.</a><a style='color:sandybrown;'>create</a><a style='color:red;'>(</a><a style='color:gold;'>User</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>staff:</a><a> </a><a style='color:#2a6edb;'>true</a><a style='color:red;'>)</a><div>
+</div><a>      </a><a style='color:sandybrown;'>staff_ws</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>WsClientFactory</a><a style='color:red;'>.</a><a style='color:sandybrown;'>create_client_for</a><a style='color:red;'>(</a><a style='color:sandybrown;'>staff</a><a style='color:red;'>)</a><div>
+</div><a>      </a><a style='color:sandybrown;'>should_become_staff</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>Factory</a><a style='color:red;'>.</a><a style='color:sandybrown;'>create</a><a style='color:red;'>(</a><a style='color:gold;'>User</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>      </a><a style='color:sandybrown;'>ref</a><a> </a><a style='color:red;'>=</a><div>
+</div><a>        </a><a style='color:gold;'>WsClient</a><a style='color:red;'>.</a><a style='color:sandybrown;'>send_call</a><a style='color:red;'>(</a><a style='color:sandybrown;'>staff_ws</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"user:admin_update"</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>%{</a><div>
+</div><a>          </a><a style='color:greenyellow;'>"id"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:sandybrown;'>should_become_staff</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>,</a><div>
+</div><a>          </a><a style='color:greenyellow;'>"user"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:red;'>%{</a><div>
+</div><a>            </a><a style='color:greenyellow;'>"staff"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:#2a6edb;'>true</a><a style='color:red;'>,</a><div>
+</div><a>            </a><a style='color:greenyellow;'>"contributions"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:#2a6edb;'>100</a><div>
+</div><a>          </a><a style='color:red;'>}</a><div>
+</div><a>        </a><a style='color:red;'>}</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>      </a><a style='color:gold;'>WsClient</a><a style='color:red;'>.</a><a style='color:sandybrown;'>assert_reply</a><a style='color:red;'>(</a><a style='color:greenyellow;'>"user:admin_update:reply"</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>ref</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>%{</a><div>
+</div><a>        </a><a style='color:greenyellow;'>"staff"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:#2a6edb;'>true</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:greenyellow;'>"contributions"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:#2a6edb;'>100</a><div>
+</div><a>      </a><a style='color:red;'>}</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>      </a><a style='color:grey;'># check that the user has been updated.</a><div>
+</div><a>      </a><a style='color:sandybrown;'>assert</a><a> </a><a style='color:red;'>%{</a><a style='color:#2a6edb;'>staff:</a><a> </a><a style='color:#2a6edb;'>true</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>contributions:</a><a> </a><a style='color:#2a6edb;'>100</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>Users</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get_by_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>should_become_staff</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>    </a><a style='color:sandybrown;'>test</a><a> </a><a style='color:greenyellow;'>"can update single field"</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>t</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:gold;'>WsClient</a><a style='color:red;'>.</a><a style='color:sandybrown;'>do_call</a><a style='color:red;'>(</a><a style='color:sandybrown;'>t</a><a style='color:red;'>.</a><a style='color:sandybrown;'>client_ws</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"user:admin_update"</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>%{</a><div>
+</div><a>        </a><a style='color:greenyellow;'>"id"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:sandybrown;'>t</a><a style='color:red;'>.</a><a style='color:sandybrown;'>staff_user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:greenyellow;'>"user"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:red;'>%{</a><div>
+</div><a>          </a><a style='color:greenyellow;'>"staff"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:#2a6edb;'>true</a><a style='color:red;'>,</a><div>
+</div><a>          </a><a style='color:greenyellow;'>"contributions"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:#2a6edb;'>100</a><div>
+</div><a>        </a><a style='color:red;'>}</a><div>
+</div><a>      </a><a style='color:red;'>}</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>      </a><a style='color:sandybrown;'>ref</a><a> </a><a style='color:red;'>=</a><div>
+</div><a>        </a><a style='color:gold;'>WsClient</a><a style='color:red;'>.</a><a style='color:sandybrown;'>send_call</a><a style='color:red;'>(</a><a style='color:sandybrown;'>t</a><a style='color:red;'>.</a><a style='color:sandybrown;'>client_ws</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"user:admin_update"</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>%{</a><div>
+</div><a>          </a><a style='color:greenyellow;'>"id"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:sandybrown;'>t</a><a style='color:red;'>.</a><a style='color:sandybrown;'>staff_user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>,</a><div>
+</div><a>          </a><a style='color:greenyellow;'>"user"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:red;'>%{</a><div>
+</div><a>            </a><a style='color:greenyellow;'>"staff"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:#2a6edb;'>false</a><div>
+</div><a>          </a><a style='color:red;'>}</a><div>
+</div><a>        </a><a style='color:red;'>}</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>      </a><a style='color:gold;'>WsClient</a><a style='color:red;'>.</a><a style='color:sandybrown;'>assert_reply</a><a style='color:red;'>(</a><a style='color:greenyellow;'>"user:admin_update:reply"</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>ref</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>%{</a><div>
+</div><a>        </a><a style='color:greenyellow;'>"staff"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:#2a6edb;'>false</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:greenyellow;'>"contributions"</a><a> </a><a style='color:red;'>=></a><a> </a><a style='color:#2a6edb;'>100</a><div>
+</div><a>      </a><a style='color:red;'>}</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>      </a><a style='color:grey;'># check that the user has been updated.</a><div>
+</div><a>      </a><a style='color:sandybrown;'>assert</a><a> </a><a style='color:red;'>%{</a><a style='color:#2a6edb;'>staff:</a><a> </a><a style='color:#2a6edb;'>false</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>contributions:</a><a> </a><a style='color:#2a6edb;'>100</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>Users</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get_by_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>t</a><a style='color:red;'>.</a><a style='color:sandybrown;'>staff_user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><a style='color:violet;'>end</a></code></html>

@@ -1,0 +1,81 @@
+<html><head><link rel='stylesheet' href='styles.css'></head><code><a style='color:violet;'>defmodule</a><a> </a><a style='color:gold;'>Kousa</a><a style='color:red;'>.</a><a style='color:gold;'>MixProject</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>  </a><a style='color:sandybrown;'>use</a><a> </a><a style='color:gold;'>Mix</a><a style='color:red;'>.</a><a style='color:gold;'>Project</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>project</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:red;'>[</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>app:</a><a> </a><a style='color:aquamarine;'>:kousa</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>version:</a><a> </a><a style='color:greenyellow;'>"0.2.1"</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>elixir:</a><a> </a><a style='color:greenyellow;'>"~> 1.11"</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>start_permanent:</a><a> </a><a style='color:gold;'>Mix</a><a style='color:red;'>.</a><a style='color:sandybrown;'>env</a><a style='color:red;'>(</a><a style='color:red;'>)</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:aquamarine;'>:prod</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>deps:</a><a> </a><a style='color:sandybrown;'>deps</a><a style='color:red;'>(</a><a style='color:red;'>)</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>test_coverage:</a><a> </a><a style='color:red;'>[</a><a style='color:#2a6edb;'>tool:</a><a> </a><a style='color:gold;'>ExCoveralls</a><a style='color:red;'>]</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>preferred_cli_env:</a><a> </a><a style='color:red;'>[</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>coveralls:</a><a> </a><a style='color:aquamarine;'>:test</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:greenyellow;'>"coveralls.html"</a><a style='color:red;'>:</a><a> </a><a style='color:aquamarine;'>:test</a><div>
+</div><a>      </a><a style='color:red;'>]</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>elixirc_paths:</a><a> </a><a style='color:sandybrown;'>elixirc_paths</a><a style='color:red;'>(</a><a style='color:gold;'>Mix</a><a style='color:red;'>.</a><a style='color:sandybrown;'>env</a><a style='color:red;'>(</a><a style='color:red;'>)</a><a style='color:red;'>)</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>aliases:</a><a> </a><a style='color:sandybrown;'>aliases</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>]</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>application</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>dev_only_apps</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>List</a><a style='color:red;'>.</a><a style='color:sandybrown;'>wrap</a><a style='color:red;'>(</a><a style='color:sandybrown;'>if</a><a> </a><a style='color:gold;'>Mix</a><a style='color:red;'>.</a><a style='color:sandybrown;'>env</a><a style='color:red;'>(</a><a style='color:red;'>)</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:aquamarine;'>:dev</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>do:</a><a> </a><a style='color:aquamarine;'>:remix</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:sandybrown;'>test_only_apps</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>List</a><a style='color:red;'>.</a><a style='color:sandybrown;'>wrap</a><a style='color:red;'>(</a><a style='color:sandybrown;'>if</a><a> </a><a style='color:gold;'>Mix</a><a style='color:red;'>.</a><a style='color:sandybrown;'>env</a><a style='color:red;'>(</a><a style='color:red;'>)</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:aquamarine;'>:test</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>do:</a><a> </a><a style='color:aquamarine;'>:websockex</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>    </a><a style='color:red;'>[</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>mod:</a><a> </a><a style='color:red;'>{</a><a style='color:gold;'>Kousa</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>[</a><a style='color:red;'>]</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:grey;'># moved logger to 2nd position to kill this error</a><div>
+</div><a>      </a><a style='color:grey;'># calling logger:remove_handler(default) failed: :error {:badmatch, {:error, {:not_found, :default}}}</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>extra_applications:</a><div>
+</div><a>        </a><a style='color:red;'>[</a><a style='color:aquamarine;'>:amqp</a><a style='color:red;'>,</a><a> </a><a style='color:aquamarine;'>:logger</a><a style='color:red;'>,</a><a> </a><a style='color:aquamarine;'>:ueberauth_github</a><a style='color:red;'>,</a><a> </a><a style='color:aquamarine;'>:ueberauth_google</a><a style='color:red;'>,</a><a> </a><a style='color:aquamarine;'>:prometheus_ex</a><a style='color:red;'>]</a><a> </a><a style='color:red;'>++</a><div>
+</div><a>          </a><a style='color:sandybrown;'>dev_only_apps</a><a> </a><a style='color:red;'>++</a><a> </a><a style='color:sandybrown;'>test_only_apps</a><div>
+</div><a>    </a><a style='color:red;'>]</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:sandybrown;'>defp</a><a> </a><a style='color:sandybrown;'>deps</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:red;'>[</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:amqp</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 2.1"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:plug_cowboy</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 2.5"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:phoenix_pubsub</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 2.0.0"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ecto_sql</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 3.0"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ecto_enum</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 1.4"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:jason</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 1.2"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:joken</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 2.0"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:elixir_uuid</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 1.2"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:net_address</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 0.3"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:grey;'># TODO: switch off of httpoison to, e.g. Mojito or Finch</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:httpoison</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 1.8"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:finch</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 0.6"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:sentry</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 8.0"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:postgrex</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>">= 0.0.0"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:remix</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 0.0.1"</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>only:</a><a> </a><a style='color:aquamarine;'>:dev</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ueberauth</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 0.6"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ueberauth_github</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 0.7"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:oauther</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 1.1"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:extwitter</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 0.12"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ueberauth_twitter</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 0.3"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ueberauth_google</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 0.10"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:prometheus_ex</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 3.0"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:prometheus_plugs</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 1.1.1"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:timex</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 3.6"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:grey;'># style ENFORCEMENT</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:credo</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 1.5.5"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:grey;'># test helpers</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:faker</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 0.16.0"</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>only:</a><a> </a><a style='color:aquamarine;'>:test</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:excoveralls</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 0.10"</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>only:</a><a> </a><a style='color:aquamarine;'>:test</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ueberauth_discord</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 0.5.2"</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:websockex</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"~> 0.4.3"</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>only:</a><a> </a><a style='color:aquamarine;'>:test</a><a style='color:red;'>}</a><div>
+</div><a>    </a><a style='color:red;'>]</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:sandybrown;'>defp</a><a> </a><a style='color:sandybrown;'>elixirc_paths</a><a style='color:red;'>(</a><a style='color:aquamarine;'>:test</a><a style='color:red;'>)</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>do:</a><a> </a><a style='color:red;'>[</a><a style='color:greenyellow;'>"lib"</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"test/_support"</a><a style='color:red;'>]</a><div>
+</div><a>  </a><a style='color:sandybrown;'>defp</a><a> </a><a style='color:sandybrown;'>elixirc_paths</a><a style='color:red;'>(</a><a style='color:grey;'>_</a><a style='color:red;'>)</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>do:</a><a> </a><a style='color:red;'>[</a><a style='color:greenyellow;'>"lib"</a><a style='color:red;'>]</a><div>
+</div><div>
+</div><a>  </a><a style='color:sandybrown;'>defp</a><a> </a><a style='color:sandybrown;'>aliases</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:red;'>[</a><div>
+</div><a>      </a><a style='color:greenyellow;'>"ecto.setup"</a><a style='color:red;'>:</a><a> </a><a style='color:red;'>[</a><a style='color:greenyellow;'>"ecto.create"</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"ecto.migrate"</a><a style='color:red;'>]</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:greenyellow;'>"ecto.reset"</a><a style='color:red;'>:</a><a> </a><a style='color:red;'>[</a><a style='color:greenyellow;'>"ecto.drop"</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"ecto.setup"</a><a style='color:red;'>]</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>test:</a><a> </a><a style='color:red;'>[</a><a style='color:greenyellow;'>"ecto.create --quiet"</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"ecto.migrate"</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"test"</a><a style='color:red;'>]</a><div>
+</div><a>    </a><a style='color:red;'>]</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><a style='color:violet;'>end</a></code></html>

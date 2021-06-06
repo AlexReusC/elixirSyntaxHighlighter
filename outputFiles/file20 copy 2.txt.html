@@ -1,0 +1,94 @@
+<html><head><link rel='stylesheet' href='styles.css'></head><code><a style='color:violet;'>defmodule</a><a> </a><a style='color:gold;'>Kousa</a><a style='color:red;'>.</a><a style='color:gold;'>Auth</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Onion</a><a style='color:red;'>.</a><a style='color:gold;'>PubSub</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Kousa</a><a style='color:red;'>.</a><a style='color:gold;'>Utils</a><a style='color:red;'>.</a><a style='color:gold;'>TokenUtils</a><div>
+</div><div>
+</div><a>  </a><a style='color:red;'>@</a><a style='color:sandybrown;'>spec</a><a> </a><a style='color:sandybrown;'>authenticate</a><a style='color:red;'>(</a><a style='color:gold;'>Broth</a><a style='color:red;'>.</a><a style='color:gold;'>Message</a><a style='color:red;'>.</a><a style='color:gold;'>Auth</a><a style='color:red;'>.</a><a style='color:gold;'>Request</a><a style='color:red;'>.</a><a style='color:sandybrown;'>t</a><a style='color:red;'>(</a><a style='color:red;'>)</a><a style='color:red;'>,</a><a> </a><a style='color:gold;'>IP</a><a style='color:red;'>.</a><a style='color:sandybrown;'>addr</a><a style='color:red;'>(</a><a style='color:red;'>)</a><a style='color:red;'>)</a><a> </a><a style='color:aquamarine;'>::</a><div>
+</div><a>          </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ok</a><a style='color:red;'>,</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Schemas</a><a style='color:red;'>.</a><a style='color:gold;'>User</a><a style='color:red;'>.</a><a style='color:sandybrown;'>t</a><a style='color:red;'>(</a><a style='color:red;'>)</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>|</a><a> </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:error</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>term</a><a style='color:red;'>}</a><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>authenticate</a><a style='color:red;'>(</a><a style='color:sandybrown;'>request</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>ip</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>case</a><a> </a><a style='color:gold;'>TokenUtils</a><a style='color:red;'>.</a><a style='color:sandybrown;'>tokens_to_user_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>request</a><a style='color:red;'>.</a><a style='color:sandybrown;'>accessToken</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>request</a><a style='color:red;'>.</a><a style='color:sandybrown;'>refreshToken</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>nil</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>        </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:error</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"invalid_authentication"</a><a style='color:red;'>}</a><div>
+</div><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:existing_claim</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>        </a><a style='color:sandybrown;'>do_auth</a><a style='color:red;'>(</a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Users</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>nil</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>request</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>ip</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>      </a><a style='color:grey;'># TODO: streamline this since we're duplicating user_id and user.</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:new_tokens</a><a style='color:red;'>,</a><a> </a><a style='color:grey;'>_user_id</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>tokens</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>        </a><a style='color:sandybrown;'>do_auth</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>tokens</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>request</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>ip</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:sandybrown;'>defp</a><a> </a><a style='color:sandybrown;'>do_auth</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>tokens</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>request</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>ip</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Onion</a><a style='color:red;'>.</a><a style='color:gold;'>UserSession</a><div>
+</div><a>    </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Onion</a><a style='color:red;'>.</a><a style='color:gold;'>RoomSession</a><div>
+</div><a>    </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Rooms</a><div>
+</div><div>
+</div><a>    </a><a style='color:sandybrown;'>if</a><a> </a><a style='color:sandybrown;'>user</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:grey;'># note that this will start the session and will be ignored if the</a><div>
+</div><a>      </a><a style='color:grey;'># session is already running.</a><div>
+</div><a>      </a><a style='color:gold;'>UserSession</a><a style='color:red;'>.</a><a style='color:sandybrown;'>start_supervised</a><a style='color:red;'>(</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>user_id:</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>ip:</a><a> </a><a style='color:sandybrown;'>ip</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>username:</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>username</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>avatar_url:</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>avatarUrl</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>banner_url:</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>bannerUrl</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>display_name:</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>displayName</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>current_room_id:</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>currentRoomId</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>muted:</a><a> </a><a style='color:sandybrown;'>request</a><a style='color:red;'>.</a><a style='color:sandybrown;'>muted</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>deafened:</a><a> </a><a style='color:sandybrown;'>request</a><a style='color:red;'>.</a><a style='color:sandybrown;'>deafened</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>bot_owner_id:</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>botOwnerId</a><div>
+</div><a>      </a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>      </a><a style='color:sandybrown;'>if</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>ip</a><a> </a><a style='color:red;'>!=</a><a> </a><a style='color:sandybrown;'>ip</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>        </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Users</a><a style='color:red;'>.</a><a style='color:sandybrown;'>set_ip</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>ip</a><a style='color:red;'>)</a><div>
+</div><a>      </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>      </a><a style='color:grey;'># currently we only allow one active websocket connection per-user</a><div>
+</div><a>      </a><a style='color:grey;'># at some point soon we're going to make this multi-connection, and we</a><div>
+</div><a>      </a><a style='color:grey;'># won't have to do this.</a><div>
+</div><a>      </a><a style='color:gold;'>UserSession</a><a style='color:red;'>.</a><a style='color:sandybrown;'>set_active_ws</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>self</a><a style='color:red;'>(</a><a style='color:red;'>)</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>      </a><a style='color:sandybrown;'>if</a><a> </a><a style='color:sandybrown;'>tokens</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>        </a><a style='color:gold;'>UserSession</a><a style='color:red;'>.</a><a style='color:sandybrown;'>new_tokens</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>tokens</a><a style='color:red;'>)</a><div>
+</div><a>      </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>      </a><a style='color:sandybrown;'>roomIdFromFrontend</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:sandybrown;'>request</a><a style='color:red;'>.</a><a style='color:sandybrown;'>currentRoomId</a><div>
+</div><div>
+</div><a>      </a><a style='color:sandybrown;'>cond</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>        </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>currentRoomId</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>          </a><a style='color:grey;'># TODO: move toroom business logic</a><div>
+</div><a>          </a><a style='color:sandybrown;'>room</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>Rooms</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get_room_by_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>currentRoomId</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>          </a><a style='color:gold;'>RoomSession</a><a style='color:red;'>.</a><a style='color:sandybrown;'>start_supervised</a><a style='color:red;'>(</a><div>
+</div><a>            </a><a style='color:#2a6edb;'>room_id:</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>currentRoomId</a><a style='color:red;'>,</a><div>
+</div><a>            </a><a style='color:#2a6edb;'>voice_server_id:</a><a> </a><a style='color:sandybrown;'>room</a><a style='color:red;'>.</a><a style='color:sandybrown;'>voiceServerId</a><a style='color:red;'>,</a><div>
+</div><a>            </a><a style='color:#2a6edb;'>chat_mode:</a><a> </a><a style='color:sandybrown;'>room</a><a style='color:red;'>.</a><a style='color:sandybrown;'>chatMode</a><a style='color:red;'>,</a><div>
+</div><a>            </a><a style='color:#2a6edb;'>room_creator_id:</a><a> </a><a style='color:sandybrown;'>room</a><a style='color:red;'>.</a><a style='color:sandybrown;'>creatorId</a><div>
+</div><a>          </a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>          </a><a style='color:gold;'>PubSub</a><a style='color:red;'>.</a><a style='color:sandybrown;'>subscribe</a><a style='color:red;'>(</a><a style='color:greenyellow;'>"chat:"</a><a> </a><a style='color:red;'><></a><a> </a><a style='color:sandybrown;'>room</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>)</a><div>
+</div><a>          </a><a style='color:gold;'>RoomSession</a><a style='color:red;'>.</a><a style='color:sandybrown;'>join_room</a><a style='color:red;'>(</a><a style='color:sandybrown;'>room</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>request</a><a style='color:red;'>.</a><a style='color:sandybrown;'>muted</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>request</a><a style='color:red;'>.</a><a style='color:sandybrown;'>deafened</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>          </a><a style='color:sandybrown;'>if</a><a> </a><a style='color:sandybrown;'>request</a><a style='color:red;'>.</a><a style='color:sandybrown;'>reconnectToVoice</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:#2a6edb;'>true</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>            </a><a style='color:gold;'>Kousa</a><a style='color:red;'>.</a><a style='color:gold;'>Room</a><a style='color:red;'>.</a><a style='color:sandybrown;'>join_vc_room</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>room</a><a style='color:red;'>)</a><div>
+</div><a>          </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>        </a><a style='color:sandybrown;'>roomIdFromFrontend</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>          </a><a style='color:gold;'>Kousa</a><a style='color:red;'>.</a><a style='color:gold;'>Room</a><a style='color:red;'>.</a><a style='color:sandybrown;'>join_room</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>roomIdFromFrontend</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>        </a><a style='color:#2a6edb;'>true</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>          </a><a style='color:aquamarine;'>:ok</a><div>
+</div><a>      </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>      </a><a style='color:grey;'># subscribe to chats directed to oneself.</a><div>
+</div><a>      </a><a style='color:gold;'>PubSub</a><a style='color:red;'>.</a><a style='color:sandybrown;'>subscribe</a><a style='color:red;'>(</a><a style='color:greenyellow;'>"chat:"</a><a> </a><a style='color:red;'><></a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>)</a><div>
+</div><a>      </a><a style='color:grey;'># subscribe to user updates</a><div>
+</div><a>      </a><a style='color:gold;'>PubSub</a><a style='color:red;'>.</a><a style='color:sandybrown;'>subscribe</a><a style='color:red;'>(</a><a style='color:greenyellow;'>"user:update:"</a><a> </a><a style='color:red;'><></a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ok</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>}</a><div>
+</div><a>    </a><a style='color:violet;'>else</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:close</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>4001</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"invalid_authentication"</a><a style='color:red;'>}</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><a style='color:violet;'>end</a></code></html>

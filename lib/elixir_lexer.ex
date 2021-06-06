@@ -18,7 +18,7 @@ defmodule ResaltadorParalelo do
           "<a style='color:aquamarine;'>#{chars}</a>"
         :single_quoted_atom ->
           "<a style='color:aquamarine;'>#{chars}</a>"
-        :doble_quoted_atom ->
+        :double_quoted_atom ->
           "<a style='color:aquamarine;'>#{chars}</a>"
         :keyword_atom ->
           "<a style='color:#2a6edb;'>#{chars}</a>"
