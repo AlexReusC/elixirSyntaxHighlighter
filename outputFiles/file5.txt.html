@@ -1,0 +1,59 @@
+<html><head><link rel='stylesheet' href='styles.css'></head><code><a style='color:violet;'>defmodule</a><a> </a><a style='color:gold;'>Broth</a><a style='color:red;'>.</a><a style='color:gold;'>Message</a><a style='color:red;'>.</a><a style='color:gold;'>Misc</a><a style='color:red;'>.</a><a style='color:gold;'>Search</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>  </a><a style='color:sandybrown;'>use</a><a> </a><a style='color:gold;'>Broth</a><a style='color:red;'>.</a><a style='color:gold;'>Message</a><a style='color:red;'>.</a><a style='color:gold;'>Call</a><div>
+</div><div>
+</div><a>  </a><a style='color:red;'>@</a><a style='color:sandybrown;'>primary_key</a><a> </a><a style='color:#2a6edb;'>false</a><div>
+</div><a>  </a><a style='color:sandybrown;'>embedded_schema</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>field</a><a style='color:red;'>(</a><a style='color:aquamarine;'>:query</a><a style='color:red;'>,</a><a> </a><a style='color:aquamarine;'>:string</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:grey;'># not used currently, but will be used in the future:</a><div>
+</div><a>    </a><a style='color:sandybrown;'>field</a><a style='color:red;'>(</a><a style='color:aquamarine;'>:cursor</a><a style='color:red;'>,</a><a> </a><a style='color:aquamarine;'>:integer</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:sandybrown;'>field</a><a style='color:red;'>(</a><a style='color:aquamarine;'>:limit</a><a style='color:red;'>,</a><a> </a><a style='color:aquamarine;'>:integer</a><a style='color:red;'>)</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:red;'>@</a><a style='color:sandybrown;'>impl</a><a> </a><a style='color:#2a6edb;'>true</a><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>changeset</a><a style='color:red;'>(</a><a style='color:sandybrown;'>initializer</a><a> </a><a style='color:red;'>\</a><a style='color:red;'>\</a><a> </a><a style='color:red;'>%</a><a style='color:grey;'>__MODULE__</a><a style='color:red;'>{</a><a style='color:red;'>}</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>data</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>initializer</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:sandybrown;'>cast</a><a style='color:red;'>(</a><a style='color:sandybrown;'>data</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>[</a><a style='color:aquamarine;'>:query</a><a style='color:red;'>]</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:sandybrown;'>validate_required</a><a style='color:red;'>(</a><a style='color:red;'>[</a><a style='color:aquamarine;'>:query</a><a style='color:red;'>]</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:sandybrown;'>validate_length</a><a style='color:red;'>(</a><a style='color:aquamarine;'>:query</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>min:</a><a> </a><a style='color:#2a6edb;'>3</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>max:</a><a> </a><a style='color:#2a6edb;'>100</a><a style='color:red;'>)</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>defmodule</a><a> </a><a style='color:gold;'>Reply</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>use</a><a> </a><a style='color:gold;'>Broth</a><a style='color:red;'>.</a><a style='color:gold;'>Message</a><a style='color:red;'>.</a><a style='color:gold;'>Push</a><div>
+</div><div>
+</div><a>    </a><a style='color:red;'>@</a><a style='color:sandybrown;'>derive</a><a> </a><a style='color:red;'>{</a><a style='color:gold;'>Jason</a><a style='color:red;'>.</a><a style='color:gold;'>Encoder</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>only:</a><a> </a><a style='color:red;'>~</a><a style='color:sandybrown;'>w</a><a style='color:red;'>(</a><div>
+</div><a>        </a><a style='color:sandybrown;'>items</a><div>
+</div><a>        </a><a style='color:sandybrown;'>rooms</a><div>
+</div><a>        </a><a style='color:sandybrown;'>users</a><div>
+</div><a>        </a><a style='color:sandybrown;'>nextCursor</a><div>
+</div><a>      </a><a style='color:red;'>)</a><a style='color:sandybrown;'>a</a><a style='color:red;'>}</a><div>
+</div><div>
+</div><a>    </a><a style='color:red;'>@</a><a style='color:sandybrown;'>primary_key</a><a> </a><a style='color:#2a6edb;'>false</a><div>
+</div><a>    </a><a style='color:sandybrown;'>embedded_schema</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:grey;'># the types of this is Room | User.</a><div>
+</div><a>      </a><a style='color:grey;'># currently not enforced, but once we have real DisplayRoom and</a><div>
+</div><a>      </a><a style='color:grey;'># DisplayUser schemas we'll make sure Search.search outputs those.</a><div>
+</div><a>      </a><a style='color:sandybrown;'>field</a><a style='color:red;'>(</a><a style='color:aquamarine;'>:items</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:array</a><a style='color:red;'>,</a><a> </a><a style='color:aquamarine;'>:map</a><a style='color:red;'>}</a><a style='color:red;'>)</a><div>
+</div><a>      </a><a style='color:sandybrown;'>embeds_many</a><a style='color:red;'>(</a><a style='color:aquamarine;'>:rooms</a><a style='color:red;'>,</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Schemas</a><a style='color:red;'>.</a><a style='color:gold;'>Room</a><a style='color:red;'>)</a><div>
+</div><a>      </a><a style='color:sandybrown;'>embeds_many</a><a style='color:red;'>(</a><a style='color:aquamarine;'>:users</a><a style='color:red;'>,</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Schemas</a><a style='color:red;'>.</a><a style='color:gold;'>User</a><a style='color:red;'>)</a><div>
+</div><a>      </a><a style='color:sandybrown;'>field</a><a style='color:red;'>(</a><a style='color:aquamarine;'>:nextCursor</a><a style='color:red;'>,</a><a> </a><a style='color:aquamarine;'>:integer</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Users</a><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Rooms</a><div>
+</div><div>
+</div><a>  </a><a style='color:red;'>@</a><a style='color:sandybrown;'>impl</a><a> </a><a style='color:#2a6edb;'>true</a><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>execute</a><a style='color:red;'>(</a><a style='color:sandybrown;'>changeset</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>state</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>case</a><a> </a><a style='color:sandybrown;'>apply_action</a><a style='color:red;'>(</a><a style='color:sandybrown;'>changeset</a><a style='color:red;'>,</a><a> </a><a style='color:aquamarine;'>:validate</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ok</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>%{</a><a style='color:#2a6edb;'>query:</a><a> </a><a style='color:sandybrown;'>query</a><a style='color:red;'>}</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>        </a><a style='color:sandybrown;'>rooms</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>Rooms</a><a style='color:red;'>.</a><a style='color:sandybrown;'>search_name</a><a style='color:red;'>(</a><a style='color:sandybrown;'>query</a><a style='color:red;'>)</a><div>
+</div><a>        </a><a style='color:sandybrown;'>users</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>Users</a><a style='color:red;'>.</a><a style='color:sandybrown;'>search_username</a><a style='color:red;'>(</a><a style='color:sandybrown;'>query</a><a style='color:red;'>)</a><div>
+</div><a>        </a><a style='color:sandybrown;'>items</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>Enum</a><a style='color:red;'>.</a><a style='color:sandybrown;'>concat</a><a style='color:red;'>(</a><a style='color:sandybrown;'>rooms</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>users</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>        </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:reply</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>%</a><a style='color:gold;'>Reply</a><a style='color:red;'>{</a><a style='color:#2a6edb;'>items:</a><a> </a><a style='color:sandybrown;'>items</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>rooms:</a><a> </a><a style='color:sandybrown;'>rooms</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>users:</a><a> </a><a style='color:sandybrown;'>users</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>nextCursor:</a><a> </a><a style='color:#2a6edb;'>nil</a><a style='color:red;'>}</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>state</a><a style='color:red;'>}</a><div>
+</div><div>
+</div><a>      </a><a style='color:sandybrown;'>error</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>        </a><a style='color:sandybrown;'>error</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><a style='color:violet;'>end</a></code></html>

@@ -1,0 +1,207 @@
+<html><head><link rel='stylesheet' href='styles.css'></head><code><a style='color:violet;'>defmodule</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Access</a><a style='color:red;'>.</a><a style='color:gold;'>Users</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>  </a><a style='color:violet;'>import</a><a> </a><a style='color:gold;'>Ecto</a><a style='color:red;'>.</a><a style='color:gold;'>Query</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>warn:</a><a> </a><a style='color:#2a6edb;'>false</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Queries</a><a style='color:red;'>.</a><a style='color:gold;'>Users</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>as:</a><a> </a><a style='color:gold;'>Query</a><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Repo</a><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Schemas</a><a style='color:red;'>.</a><a style='color:gold;'>User</a><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Schemas</a><a style='color:red;'>.</a><a style='color:gold;'>Room</a><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Rooms</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>get</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:gold;'>Repo</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get</a><a style='color:red;'>(</a><a style='color:gold;'>User</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>get</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>opts</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:grey;'># opts could be a preload.</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>find_by_github_ids</a><a style='color:red;'>(</a><a style='color:sandybrown;'>ids</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>start</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>filter_by_github_ids</a><a style='color:red;'>(</a><a style='color:sandybrown;'>ids</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>select_id</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Repo</a><a style='color:red;'>.</a><a style='color:sandybrown;'>all</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>search_username</a><a style='color:red;'>(</a><a style='color:red;'><<</a><a style='color:sandybrown;'>first_letter</a><a style='color:red;'>>></a><a> </a><a style='color:red;'><></a><a> </a><a style='color:sandybrown;'>rest</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>when</a><a> </a><a style='color:sandybrown;'>first_letter</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:#2a6edb;'>?@</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>search_username</a><a style='color:red;'>(</a><a style='color:sandybrown;'>rest</a><a style='color:red;'>)</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>search_username</a><a style='color:red;'>(</a><a style='color:sandybrown;'>start_of_username</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>search_str</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:sandybrown;'>start_of_username</a><a> </a><a style='color:red;'><></a><a> </a><a style='color:greenyellow;'>"%"</a><div>
+</div><div>
+</div><a>    </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>start</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:grey;'># here</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:sandybrown;'>where</a><a style='color:red;'>(</a><a style='color:red;'>[</a><a style='color:sandybrown;'>u</a><a style='color:red;'>]</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>ilike</a><a style='color:red;'>(</a><a style='color:sandybrown;'>u</a><a style='color:red;'>.</a><a style='color:sandybrown;'>username</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>^</a><a style='color:sandybrown;'>search_str</a><a style='color:red;'>)</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:sandybrown;'>order_by</a><a style='color:red;'>(</a><a style='color:red;'>[</a><a style='color:sandybrown;'>u</a><a style='color:red;'>]</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>desc:</a><a> </a><a style='color:sandybrown;'>u</a><a style='color:red;'>.</a><a style='color:sandybrown;'>numFollowers</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:sandybrown;'>limit</a><a style='color:red;'>(</a><a style='color:red;'>[</a><a style='color:red;'>]</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>15</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Repo</a><a style='color:red;'>.</a><a style='color:sandybrown;'>all</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:red;'>@</a><a style='color:sandybrown;'>spec</a><a> </a><a style='color:sandybrown;'>get_by_id_with_follow_info</a><a style='color:red;'>(</a><a style='color:sandybrown;'>any</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>any</a><a style='color:red;'>)</a><a> </a><a style='color:red;'>::</a><a> </a><a style='color:sandybrown;'>any</a><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>get_by_id_with_follow_info</a><a style='color:red;'>(</a><a style='color:sandybrown;'>me_id</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>them_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>start</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>filter_by_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>them_id</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:sandybrown;'>select</a><a style='color:red;'>(</a><a style='color:red;'>[</a><a style='color:sandybrown;'>u</a><a style='color:red;'>]</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>u</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>follow_info</a><a style='color:red;'>(</a><a style='color:sandybrown;'>me_id</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>i_blocked_them_info</a><a style='color:red;'>(</a><a style='color:sandybrown;'>me_id</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>they_blocked_me_info</a><a style='color:red;'>(</a><a style='color:sandybrown;'>me_id</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>limit_one</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Repo</a><a style='color:red;'>.</a><a style='color:sandybrown;'>one</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>get_by_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:gold;'>Repo</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get</a><a style='color:red;'>(</a><a style='color:gold;'>User</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>get_by_id_with_room_permissions</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>from</a><a style='color:red;'>(</a><a style='color:sandybrown;'>u</a><a> </a><a style='color:violet;'>in</a><a> </a><a style='color:gold;'>User</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>where:</a><a> </a><a style='color:sandybrown;'>u</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:red;'>^</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>left_join:</a><a> </a><a style='color:sandybrown;'>rp</a><a> </a><a style='color:violet;'>in</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Schemas</a><a style='color:red;'>.</a><a style='color:gold;'>RoomPermission</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>on:</a><a> </a><a style='color:sandybrown;'>rp</a><a style='color:red;'>.</a><a style='color:sandybrown;'>userId</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:sandybrown;'>u</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a> </a><a style='color:violet;'>and</a><a> </a><a style='color:sandybrown;'>rp</a><a style='color:red;'>.</a><a style='color:sandybrown;'>roomId</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:sandybrown;'>u</a><a style='color:red;'>.</a><a style='color:sandybrown;'>currentRoomId</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>select:</a><a> </a><a style='color:red;'>%{</a><a style='color:sandybrown;'>u</a><a> </a><a style='color:red;'>|</a><a> </a><a style='color:#2a6edb;'>roomPermissions:</a><a> </a><a style='color:sandybrown;'>rp</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>limit:</a><a> </a><a style='color:#2a6edb;'>1</a><div>
+</div><a>    </a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Repo</a><a style='color:red;'>.</a><a style='color:sandybrown;'>one</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>get_by_username</a><a style='color:red;'>(</a><a style='color:sandybrown;'>username</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>start</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>filter_by_username</a><a style='color:red;'>(</a><a style='color:sandybrown;'>username</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Repo</a><a style='color:red;'>.</a><a style='color:sandybrown;'>one</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>get_by_username_with_follow_info</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>username</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>start</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>filter_by_username</a><a style='color:red;'>(</a><a style='color:sandybrown;'>username</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:sandybrown;'>select</a><a style='color:red;'>(</a><a style='color:red;'>[</a><a style='color:sandybrown;'>u</a><a style='color:red;'>]</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>u</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>follow_info</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>i_blocked_them_info</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>they_blocked_me_info</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Query</a><a style='color:red;'>.</a><a style='color:sandybrown;'>limit_one</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Repo</a><a style='color:red;'>.</a><a style='color:sandybrown;'>one</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:red;'>@</a><a style='color:sandybrown;'>fetch_limit</a><a> </a><a style='color:#2a6edb;'>16</a><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>search</a><a style='color:red;'>(</a><a style='color:sandybrown;'>query</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>offset</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>query_with_percent</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:greenyellow;'>"%"</a><a> </a><a style='color:red;'><></a><a> </a><a style='color:sandybrown;'>query</a><a> </a><a style='color:red;'><></a><a> </a><a style='color:greenyellow;'>"%"</a><div>
+</div><div>
+</div><a>    </a><a style='color:sandybrown;'>items</a><a> </a><a style='color:red;'>=</a><div>
+</div><a>      </a><a style='color:sandybrown;'>from</a><a style='color:red;'>(</a><a style='color:sandybrown;'>u</a><a> </a><a style='color:violet;'>in</a><a> </a><a style='color:gold;'>User</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>where:</a><div>
+</div><a>          </a><a style='color:sandybrown;'>ilike</a><a style='color:red;'>(</a><a style='color:sandybrown;'>u</a><a style='color:red;'>.</a><a style='color:sandybrown;'>username</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>^</a><a style='color:sandybrown;'>query_with_percent</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>or</a><div>
+</div><a>            </a><a style='color:sandybrown;'>ilike</a><a style='color:red;'>(</a><a style='color:sandybrown;'>u</a><a style='color:red;'>.</a><a style='color:sandybrown;'>displayName</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>^</a><a style='color:sandybrown;'>query_with_percent</a><a style='color:red;'>)</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>left_join:</a><a> </a><a style='color:sandybrown;'>cr</a><a> </a><a style='color:violet;'>in</a><a> </a><a style='color:gold;'>Room</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>on:</a><a> </a><a style='color:sandybrown;'>u</a><a style='color:red;'>.</a><a style='color:sandybrown;'>currentRoomId</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:sandybrown;'>cr</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a> </a><a style='color:violet;'>and</a><a> </a><a style='color:sandybrown;'>cr</a><a style='color:red;'>.</a><a style='color:sandybrown;'>isPrivate</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:#2a6edb;'>false</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>select:</a><a> </a><a style='color:red;'>%{</a><a style='color:sandybrown;'>u</a><a> </a><a style='color:red;'>|</a><a> </a><a style='color:#2a6edb;'>currentRoom:</a><a> </a><a style='color:sandybrown;'>cr</a><a style='color:red;'>}</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>limit:</a><a> </a><a style='color:red;'>@</a><a style='color:sandybrown;'>fetch_limit</a><a style='color:red;'>,</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>offset:</a><a> </a><a style='color:red;'>^</a><a style='color:sandybrown;'>offset</a><div>
+</div><a>      </a><a style='color:red;'>)</a><div>
+</div><a>      </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Repo</a><a style='color:red;'>.</a><a style='color:sandybrown;'>all</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>    </a><a style='color:red;'>{</a><a style='color:gold;'>Enum</a><a style='color:red;'>.</a><a style='color:sandybrown;'>slice</a><a style='color:red;'>(</a><a style='color:sandybrown;'>items</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>0</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>-</a><a style='color:#2a6edb;'>1</a><a> </a><a style='color:red;'>+</a><a> </a><a style='color:red;'>@</a><a style='color:sandybrown;'>fetch_limit</a><a style='color:red;'>)</a><a style='color:red;'>,</a><div>
+</div><a>     </a><a style='color:sandybrown;'>if</a><a style='color:red;'>(</a><a style='color:sandybrown;'>length</a><a style='color:red;'>(</a><a style='color:sandybrown;'>items</a><a style='color:red;'>)</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:red;'>@</a><a style='color:sandybrown;'>fetch_limit</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>do:</a><a> </a><a style='color:red;'>-</a><a style='color:#2a6edb;'>1</a><a> </a><a style='color:red;'>+</a><a> </a><a style='color:sandybrown;'>offset</a><a> </a><a style='color:red;'>+</a><a> </a><a style='color:red;'>@</a><a style='color:sandybrown;'>fetch_limit</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>else:</a><a> </a><a style='color:#2a6edb;'>nil</a><a style='color:red;'>)</a><a style='color:red;'>}</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>get_users_in_current_room</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>case</a><a> </a><a style='color:sandybrown;'>tuple_get_current_room_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ok</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>nil</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>        </a><a style='color:red;'>{</a><a style='color:#2a6edb;'>nil</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>[</a><a style='color:red;'>]</a><a style='color:red;'>}</a><div>
+</div><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ok</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>current_room_id</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>        </a><a style='color:red;'>{</a><a style='color:sandybrown;'>current_room_id</a><a style='color:red;'>,</a><div>
+</div><a>         </a><a style='color:sandybrown;'>from</a><a style='color:red;'>(</a><a style='color:sandybrown;'>u</a><a> </a><a style='color:violet;'>in</a><a> </a><a style='color:gold;'>User</a><a style='color:red;'>,</a><div>
+</div><a>           </a><a style='color:#2a6edb;'>where:</a><a> </a><a style='color:sandybrown;'>u</a><a style='color:red;'>.</a><a style='color:sandybrown;'>currentRoomId</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:red;'>^</a><a style='color:sandybrown;'>current_room_id</a><a style='color:red;'>,</a><div>
+</div><a>           </a><a style='color:#2a6edb;'>left_join:</a><a> </a><a style='color:sandybrown;'>rp</a><a> </a><a style='color:violet;'>in</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Schemas</a><a style='color:red;'>.</a><a style='color:gold;'>RoomPermission</a><a style='color:red;'>,</a><div>
+</div><a>           </a><a style='color:#2a6edb;'>on:</a><a> </a><a style='color:sandybrown;'>rp</a><a style='color:red;'>.</a><a style='color:sandybrown;'>userId</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:sandybrown;'>u</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a> </a><a style='color:violet;'>and</a><a> </a><a style='color:sandybrown;'>rp</a><a style='color:red;'>.</a><a style='color:sandybrown;'>roomId</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:sandybrown;'>u</a><a style='color:red;'>.</a><a style='color:sandybrown;'>currentRoomId</a><a style='color:red;'>,</a><div>
+</div><a>           </a><a style='color:#2a6edb;'>select:</a><a> </a><a style='color:red;'>%{</a><a style='color:sandybrown;'>u</a><a> </a><a style='color:red;'>|</a><a> </a><a style='color:#2a6edb;'>roomPermissions:</a><a> </a><a style='color:sandybrown;'>rp</a><a style='color:red;'>}</a><div>
+</div><a>         </a><a style='color:red;'>)</a><div>
+</div><a>         </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Repo</a><a style='color:red;'>.</a><a style='color:sandybrown;'>all</a><a style='color:red;'>(</a><a style='color:red;'>)</a><a style='color:red;'>}</a><div>
+</div><div>
+</div><a>      </a><a style='color:grey;'>_</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>        </a><a style='color:red;'>{</a><a style='color:#2a6edb;'>nil</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>[</a><a style='color:red;'>]</a><a style='color:red;'>}</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:grey;'># NB: Anything that touches Gen will have to be refactored away</a><div>
+</div><a>  </a><a style='color:grey;'># out of the database layer, but we are keeping it here for now</a><div>
+</div><a>  </a><a style='color:grey;'># to keep the transition smooth.</a><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>tuple_get_current_room_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:grey;'># DO NOT COPY/PASTE THIS FUNCTION</a><div>
+</div><a>    </a><a style='color:sandybrown;'>case</a><a> </a><a style='color:gold;'>Onion</a><a style='color:red;'>.</a><a style='color:gold;'>UserSession</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get_current_room_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ok</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>nil</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>        </a><a style='color:red;'>{</a><a style='color:#2a6edb;'>nil</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>nil</a><a style='color:red;'>}</a><div>
+</div><div>
+</div><a>      </a><a style='color:sandybrown;'>x</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>        </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ok</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>x</a><a style='color:red;'>}</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:red;'>@</a><a style='color:sandybrown;'>spec</a><a> </a><a style='color:sandybrown;'>get_by_id_with_current_room</a><a style='color:red;'>(</a><a style='color:sandybrown;'>any</a><a style='color:red;'>)</a><a> </a><a style='color:red;'>::</a><a> </a><a style='color:sandybrown;'>any</a><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>get_by_id_with_current_room</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>from</a><a style='color:red;'>(</a><a style='color:sandybrown;'>u</a><a> </a><a style='color:violet;'>in</a><a> </a><a style='color:gold;'>User</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>left_join:</a><a> </a><a style='color:sandybrown;'>a0</a><a> </a><a style='color:violet;'>in</a><a> </a><a style='color:sandybrown;'>assoc</a><a style='color:red;'>(</a><a style='color:sandybrown;'>u</a><a style='color:red;'>,</a><a> </a><a style='color:aquamarine;'>:currentRoom</a><a style='color:red;'>)</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>where:</a><a> </a><a style='color:sandybrown;'>u</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:red;'>^</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>limit:</a><a> </a><a style='color:#2a6edb;'>1</a><a style='color:red;'>,</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>preload:</a><a> </a><a style='color:red;'>[</a><div>
+</div><a>        </a><a style='color:#2a6edb;'>currentRoom:</a><a> </a><a style='color:sandybrown;'>a0</a><div>
+</div><a>      </a><a style='color:red;'>]</a><div>
+</div><a>    </a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Repo</a><a style='color:red;'>.</a><a style='color:sandybrown;'>one</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>get_current_room</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>room_id</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:sandybrown;'>get_current_room_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>    </a><a style='color:sandybrown;'>case</a><a> </a><a style='color:sandybrown;'>room_id</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:#2a6edb;'>nil</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><a> </a><a style='color:#2a6edb;'>nil</a><div>
+</div><a>      </a><a style='color:sandybrown;'>id</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><a> </a><a style='color:gold;'>Rooms</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get_room_by_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>id</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>get_current_room_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:grey;'># DO NOT COPY/PASTE THIS FUNCTION</a><div>
+</div><a>    </a><a style='color:sandybrown;'>try</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:gold;'>Onion</a><a style='color:red;'>.</a><a style='color:gold;'>UserSession</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get_current_room_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:violet;'>catch</a><div>
+</div><a>      </a><a style='color:grey;'>_</a><a style='color:red;'>,</a><a> </a><a style='color:grey;'>_</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>        </a><a style='color:sandybrown;'>case</a><a> </a><a style='color:sandybrown;'>get_by_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>          </a><a style='color:#2a6edb;'>nil</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><a> </a><a style='color:#2a6edb;'>nil</a><div>
+</div><a>          </a><a style='color:red;'>%{</a><a style='color:#2a6edb;'>currentRoomId:</a><a> </a><a style='color:sandybrown;'>id</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><a> </a><a style='color:sandybrown;'>id</a><div>
+</div><a>        </a><a style='color:violet;'>end</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>get_ip</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:grey;'># DO NOT COPY/PASTE THIS FUNCTION</a><div>
+</div><a>    </a><a style='color:sandybrown;'>try</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:gold;'>Onion</a><a style='color:red;'>.</a><a style='color:gold;'>UserSession</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>,</a><a> </a><a style='color:aquamarine;'>:ip</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:violet;'>catch</a><div>
+</div><a>      </a><a style='color:grey;'>_</a><a style='color:red;'>,</a><a> </a><a style='color:grey;'>_</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>        </a><a style='color:sandybrown;'>case</a><a> </a><a style='color:sandybrown;'>get_by_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>          </a><a style='color:#2a6edb;'>nil</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><a> </a><a style='color:#2a6edb;'>nil</a><div>
+</div><a>          </a><a style='color:red;'>%{</a><a style='color:#2a6edb;'>ip:</a><a> </a><a style='color:sandybrown;'>ip</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><a> </a><a style='color:sandybrown;'>ip</a><div>
+</div><a>        </a><a style='color:violet;'>end</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>bot?</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:grey;'># DO NOT COPY/PASTE THIS FUNCTION</a><div>
+</div><a>    </a><a style='color:sandybrown;'>try</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:violet;'>not</a><a> </a><a style='color:sandybrown;'>is_nil</a><a style='color:red;'>(</a><a style='color:gold;'>Onion</a><a style='color:red;'>.</a><a style='color:gold;'>UserSession</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>,</a><a> </a><a style='color:aquamarine;'>:bot_owner_id</a><a style='color:red;'>)</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:violet;'>catch</a><div>
+</div><a>      </a><a style='color:grey;'>_</a><a style='color:red;'>,</a><a> </a><a style='color:grey;'>_</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>        </a><a style='color:sandybrown;'>case</a><a> </a><a style='color:sandybrown;'>get_by_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>          </a><a style='color:#2a6edb;'>nil</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><a> </a><a style='color:#2a6edb;'>nil</a><div>
+</div><a>          </a><a style='color:red;'>%{</a><a style='color:#2a6edb;'>botOwnerId:</a><a> </a><a style='color:sandybrown;'>botOwnerId</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><a> </a><a style='color:violet;'>not</a><a> </a><a style='color:sandybrown;'>is_nil</a><a style='color:red;'>(</a><a style='color:sandybrown;'>botOwnerId</a><a style='color:red;'>)</a><div>
+</div><a>        </a><a style='color:violet;'>end</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>get_by_api_key</a><a style='color:red;'>(</a><a style='color:sandybrown;'>api_key</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:gold;'>Repo</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get_by</a><a style='color:red;'>(</a><a style='color:gold;'>User</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>apiKey:</a><a> </a><a style='color:sandybrown;'>api_key</a><a style='color:red;'>)</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>count_bot_accounts</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:gold;'>Repo</a><a style='color:red;'>.</a><a style='color:sandybrown;'>one</a><a style='color:red;'>(</a><a style='color:sandybrown;'>from</a><a style='color:red;'>(</a><a style='color:sandybrown;'>u</a><a> </a><a style='color:violet;'>in</a><a> </a><a style='color:gold;'>User</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>select:</a><a> </a><a style='color:sandybrown;'>fragment</a><a style='color:red;'>(</a><a style='color:greenyellow;'>"count(*)"</a><a style='color:red;'>)</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>where:</a><a> </a><a style='color:sandybrown;'>u</a><a style='color:red;'>.</a><a style='color:sandybrown;'>botOwnerId</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:red;'>^</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a style='color:red;'>)</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><a style='color:violet;'>end</a></code></html>

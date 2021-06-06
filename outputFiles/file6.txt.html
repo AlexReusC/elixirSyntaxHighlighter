@@ -1,0 +1,93 @@
+<html><head><link rel='stylesheet' href='styles.css'></head><code><a style='color:violet;'>defmodule</a><a> </a><a style='color:gold;'>Kousa</a><a style='color:red;'>.</a><a style='color:gold;'>User</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Users</a><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Beef</a><a style='color:red;'>.</a><a style='color:gold;'>Schemas</a><a style='color:red;'>.</a><a style='color:gold;'>User</a><div>
+</div><a>  </a><a style='color:violet;'>alias</a><a> </a><a style='color:gold;'>Onion</a><a style='color:red;'>.</a><a style='color:gold;'>PubSub</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>delete</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:gold;'>Kousa</a><a style='color:red;'>.</a><a style='color:gold;'>Room</a><a style='color:red;'>.</a><a style='color:sandybrown;'>leave_room</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><div>
+</div><a>    </a><a style='color:gold;'>Users</a><a style='color:red;'>.</a><a style='color:sandybrown;'>delete</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>)</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>revoke_api_key</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>bot_id</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>user</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>Users</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get_by_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>bot_id</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>    </a><a style='color:sandybrown;'>if</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a> </a><a style='color:red;'>!=</a><a> </a><a style='color:sandybrown;'>user_id</a><a> </a><a style='color:violet;'>and</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>botOwnerId</a><a> </a><a style='color:red;'>!=</a><a> </a><a style='color:sandybrown;'>user_id</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:error</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"not authorized"</a><a style='color:red;'>}</a><div>
+</div><a>    </a><a style='color:violet;'>else</a><div>
+</div><a>      </a><a style='color:sandybrown;'>new_api_key</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>UUID</a><a style='color:red;'>.</a><a style='color:sandybrown;'>uuid4</a><a style='color:red;'>(</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>      </a><a style='color:sandybrown;'>case</a><a> </a><a style='color:sandybrown;'>user</a><div>
+</div><a>           </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>User</a><a style='color:red;'>.</a><a style='color:sandybrown;'>api_key_changeset</a><a style='color:red;'>(</a><a style='color:red;'>%{</a><a style='color:#2a6edb;'>apiKey:</a><a> </a><a style='color:sandybrown;'>new_api_key</a><a style='color:red;'>}</a><a style='color:red;'>)</a><div>
+</div><a>           </a><a style='color:red;'>|></a><a> </a><a style='color:gold;'>Users</a><a style='color:red;'>.</a><a style='color:sandybrown;'>update</a><a style='color:red;'>(</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>        </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ok</a><a style='color:red;'>,</a><a> </a><a style='color:grey;'>_</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>          </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ok</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>new_api_key</a><a style='color:red;'>}</a><div>
+</div><div>
+</div><a>        </a><a style='color:sandybrown;'>error</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>          </a><a style='color:sandybrown;'>error</a><div>
+</div><a>      </a><a style='color:violet;'>end</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>update_with</a><a style='color:red;'>(</a><a style='color:sandybrown;'>changeset</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:red;'>%</a><a style='color:gold;'>Ecto</a><a style='color:red;'>.</a><a style='color:gold;'>Changeset</a><a style='color:red;'>{</a><a style='color:red;'>}</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>case</a><a> </a><a style='color:gold;'>Users</a><a style='color:red;'>.</a><a style='color:sandybrown;'>update</a><a style='color:red;'>(</a><a style='color:sandybrown;'>changeset</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ok</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>        </a><a style='color:grey;'># TODO: clean this up by making Onion.UserSession adopt the User schema and having it</a><div>
+</div><a>        </a><a style='color:grey;'># accept pubsub broadcast messages.</a><div>
+</div><div>
+</div><a>        </a><a style='color:gold;'>Onion</a><a style='color:red;'>.</a><a style='color:gold;'>UserSession</a><a style='color:red;'>.</a><a style='color:sandybrown;'>set_state</a><a style='color:red;'>(</a><div>
+</div><a>          </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>,</a><div>
+</div><a>          </a><a style='color:red;'>%{</a><div>
+</div><a>            </a><a style='color:#2a6edb;'>display_name:</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>displayName</a><a style='color:red;'>,</a><div>
+</div><a>            </a><a style='color:#2a6edb;'>username:</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>username</a><a style='color:red;'>,</a><div>
+</div><a>            </a><a style='color:#2a6edb;'>avatar_url:</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>avatarUrl</a><a style='color:red;'>,</a><div>
+</div><a>            </a><a style='color:#2a6edb;'>banner_url:</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>bannerUrl</a><div>
+</div><a>          </a><a style='color:red;'>}</a><div>
+</div><a>        </a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>        </a><a style='color:gold;'>PubSub</a><a style='color:red;'>.</a><a style='color:sandybrown;'>broadcast</a><a style='color:red;'>(</a><a style='color:greenyellow;'>"user:update:"</a><a> </a><a style='color:red;'><></a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>.</a><a style='color:sandybrown;'>id</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>)</a><div>
+</div><a>        </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ok</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>}</a><div>
+</div><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:error</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>%</a><a style='color:gold;'>Ecto</a><a style='color:red;'>.</a><a style='color:gold;'>Changeset</a><a style='color:red;'>{</a><a style='color:#2a6edb;'>errors:</a><a> </a><a style='color:red;'>[</a><a style='color:#2a6edb;'>username:</a><a> </a><a style='color:red;'>{</a><a style='color:greenyellow;'>"has already been taken, _"</a><a style='color:red;'>}</a><a style='color:red;'>]</a><a style='color:red;'>}</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>        </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:error</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"that user name is taken"</a><a style='color:red;'>}</a><div>
+</div><div>
+</div><a>      </a><a style='color:sandybrown;'>error</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>        </a><a style='color:sandybrown;'>error</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:red;'>@</a><a style='color:sandybrown;'>doc</a><a> </a><a style='color:greenyellow;'>"""
+  bans a user from the platform.  Must be an admin operator (currently ben) to run
+  this function.  Authorization passed in via the opts (:admin_id) field.
+  If someone that isn't ben tries to use it, it won't leak a meaningful error message
+  (to prevent side channel knowledge of authorization status)
+  """</a><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>ban</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id_to_ban</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>reason_for_ban</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>opts</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>authorized_github_id</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>Application</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get_env</a><a style='color:red;'>(</a><a style='color:aquamarine;'>:kousa</a><a style='color:red;'>,</a><a> </a><a style='color:aquamarine;'>:ben_github_id</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>""</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>    </a><a style='color:sandybrown;'>with</a><a> </a><a style='color:red;'>%{</a><a style='color:#2a6edb;'>githubId:</a><a> </a><a style='color:red;'>^</a><a style='color:sandybrown;'>authorized_github_id</a><a style='color:red;'>}</a><a> </a><a style='color:red;'><</a><a style='color:red;'>-</a><a> </a><a style='color:gold;'>Users</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get_by_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>opts</a><a style='color:red;'>[</a><a style='color:aquamarine;'>:admin_id</a><a style='color:red;'>]</a><a style='color:red;'>)</a><a style='color:red;'>,</a><div>
+</div><a>         </a><a style='color:sandybrown;'>user_to_ban</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:red;'>%{</a><a style='color:red;'>}</a><a> </a><a style='color:red;'><</a><a style='color:red;'>-</a><a> </a><a style='color:gold;'>Users</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get_by_id</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id_to_ban</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:gold;'>Kousa</a><a style='color:red;'>.</a><a style='color:gold;'>Room</a><a style='color:red;'>.</a><a style='color:sandybrown;'>leave_room</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id_to_ban</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>user_to_ban</a><a style='color:red;'>.</a><a style='color:sandybrown;'>currentRoomId</a><a style='color:red;'>)</a><div>
+</div><a>      </a><a style='color:gold;'>Users</a><a style='color:red;'>.</a><a style='color:sandybrown;'>set_reason_for_ban</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id_to_ban</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>reason_for_ban</a><a style='color:red;'>)</a><div>
+</div><a>      </a><a style='color:gold;'>Onion</a><a style='color:red;'>.</a><a style='color:gold;'>UserSession</a><a style='color:red;'>.</a><a style='color:sandybrown;'>send_ws</a><a style='color:red;'>(</a><a style='color:sandybrown;'>user_id_to_ban</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>nil</a><a style='color:red;'>,</a><a> </a><a style='color:red;'>%{</a><a style='color:#2a6edb;'>op:</a><a> </a><a style='color:greenyellow;'>"banned"</a><a style='color:red;'>,</a><a> </a><a style='color:#2a6edb;'>d:</a><a> </a><a style='color:red;'>%{</a><a style='color:red;'>}</a><a style='color:red;'>}</a><a style='color:red;'>)</a><div>
+</div><a>      </a><a style='color:aquamarine;'>:ok</a><div>
+</div><a>    </a><a style='color:violet;'>else</a><div>
+</div><a>      </a><a style='color:grey;'>_</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><a> </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:error</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"tried to ban #{user_id_to_ban} but that user didn't exist"</a><a style='color:red;'>}</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><div>
+</div><a>  </a><a style='color:violet;'>def</a><a> </a><a style='color:sandybrown;'>admin_update_with</a><a style='color:red;'>(</a><a style='color:sandybrown;'>changeset</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>admin</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>    </a><a style='color:sandybrown;'>authorized_github_id</a><a> </a><a style='color:red;'>=</a><a> </a><a style='color:gold;'>Application</a><a style='color:red;'>.</a><a style='color:sandybrown;'>get_env</a><a style='color:red;'>(</a><a style='color:aquamarine;'>:kousa</a><a style='color:red;'>,</a><a> </a><a style='color:aquamarine;'>:ben_github_id</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>""</a><a style='color:red;'>)</a><div>
+</div><div>
+</div><a>    </a><a style='color:sandybrown;'>if</a><a> </a><a style='color:sandybrown;'>admin</a><a style='color:red;'>.</a><a style='color:sandybrown;'>staff</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:#2a6edb;'>true</a><a> </a><a style='color:violet;'>or</a><a> </a><a style='color:sandybrown;'>admin</a><a style='color:red;'>.</a><a style='color:sandybrown;'>githubId</a><a> </a><a style='color:red;'>==</a><a> </a><a style='color:sandybrown;'>authorized_github_id</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>      </a><a style='color:sandybrown;'>case</a><a> </a><a style='color:gold;'>Users</a><a style='color:red;'>.</a><a style='color:sandybrown;'>update</a><a style='color:red;'>(</a><a style='color:sandybrown;'>changeset</a><a style='color:red;'>)</a><a> </a><a style='color:violet;'>do</a><div>
+</div><a>        </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ok</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>}</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>          </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:ok</a><a style='color:red;'>,</a><a> </a><a style='color:sandybrown;'>user</a><a style='color:red;'>}</a><div>
+</div><div>
+</div><a>        </a><a style='color:sandybrown;'>error</a><a> </a><a style='color:red;'>-</a><a style='color:red;'>></a><div>
+</div><a>          </a><a style='color:sandybrown;'>error</a><div>
+</div><a>      </a><a style='color:violet;'>end</a><div>
+</div><a>    </a><a style='color:violet;'>else</a><div>
+</div><a>      </a><a style='color:red;'>{</a><a style='color:aquamarine;'>:error</a><a style='color:red;'>,</a><a> </a><a style='color:greenyellow;'>"not authorized"</a><a style='color:red;'>}</a><div>
+</div><a>    </a><a style='color:violet;'>end</a><div>
+</div><a>  </a><a style='color:violet;'>end</a><div>
+</div><a style='color:violet;'>end</a></code></html>
