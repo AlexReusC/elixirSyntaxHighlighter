@@ -86,4 +86,5 @@ end
     |> Enum.map(fn input_file -> Task.async(fn -> create_file("#{path}/#{input_file}", "./outputFiles/#{input_file}.html") end ) end)
     |> Enum.map(fn task -> Task.await(task) end)
   end
+
 end
