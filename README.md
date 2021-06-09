@@ -1,21 +1,26 @@
-# ElixirLexer
+# Resaltador_paralelo
 
-**TODO: Add description**
+**Lexer para elixir (sync y async)**
 
-## Installation
+## Uso con resaltador secuencial
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `elixir_lexer` to your list of dependencies in `mix.exs`:
+En iex -S mix usa ResaltadorParalelo.sequential_workflow(<dirección de los archivos>)
+Eg.
 
 ```elixir
-def deps do
-  [
-    {:elixir_lexer, "~> 0.1.0"}
-  ]
-end
+ResaltadorParalelo.sequential_workflow(".codes/5files")
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/elixir_lexer](https://hexdocs.pm/elixir_lexer).
+## Uso con resaltador paralelo
+
+En iex -S mix usa ResaltadorParalelo.oarallel_workflow(<dirección de los archivos>)
+Eg.
+
+```elixir
+ResaltadorParalelo.parallel_workflow(".codes/5files")
+```
+
+## Comparar performance
+
+Usar en terminal el comando mix run run_defaults.exs
 
