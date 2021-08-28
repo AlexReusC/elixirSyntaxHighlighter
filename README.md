@@ -8,16 +8,16 @@ En iex -S mix usa ResaltadorParalelo.sequential_workflow(<dirección de los arch
 Eg.
 
 ```elixir
-ResaltadorParalelo.sequential_workflow(".codes/5files")
+ResaltadorParalelo.sequential_workflow("./codes/5files")
 ```
 
 ## Uso con resaltador paralelo
 
-En iex -S mix usa ResaltadorParalelo.oarallel_workflow(<dirección de los archivos>)
+En iex -S mix usa ResaltadorParalelo.parallel_workflow(<dirección de los archivos>)
 Eg.
 
 ```elixir
-ResaltadorParalelo.parallel_workflow(".codes/5files")
+ResaltadorParalelo.parallel_workflow("./codes/5files")
 ```
 
 ## Comparar performance

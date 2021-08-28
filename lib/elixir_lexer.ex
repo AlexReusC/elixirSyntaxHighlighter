@@ -1,64 +1,8 @@
 defmodule ResaltadorParalelo do
+
   def add_tags(list) do
-    list |> Enum.map(fn {token, _, chars} ->
-      case token do
-        :integer ->
-          "<a style='color:#2a6edb;'>#{chars}</a>"
-        :float ->
-          "<a style='color:#2a6edb'>#{chars}</a>"
-        :hexadecimal ->
-          "<a style='color:#2a6edb;'>#{chars}</a>"
-        :octal ->
-          "<a style='color:#2a6edb;'>#{chars}</a>"
-        :binary ->
-          "<a style='color:#2a6edb;'>#{chars}</a>"
-        :unicode_point ->
-          "<a style='color:#2a6edb;'>#{chars}</a>"
-        :atom ->
-          "<a style='color:aquamarine;'>#{chars}</a>"
-        :single_quoted_atom ->
-          "<a style='color:aquamarine;'>#{chars}</a>"
-        :double_quoted_atom ->
-          "<a style='color:aquamarine;'>#{chars}</a>"
-        :keyword_atom ->
-          "<a style='color:#2a6edb;'>#{chars}</a>"
-        :string ->
-          "<a style='color:greenyellow;'>#{chars}</a>"
-        :multiline_string ->
-          "<a style='color:greenyellow;'>#{chars}</a>"
-        :charlist ->
-          "<a style='color:greenyellow;'>#{chars}</a>"
-        :multiline_charlist ->
-          "<a style='color:greenyellow;'>#{chars}</a>"
-        :delimiter ->
-          "<a style='color:red;'>#{chars}</a>"
-        :variable ->
-          "<a style='color:sandybrown;'>#{chars}</a>"
-        :hidden_variable ->
-          "<a style='color:grey;'>#{chars}</a>"
-        :alias ->
-          "<a style='color:gold;'>#{chars}</a>"
-        :comment ->
-          "<a style='color:grey;'>#{chars}</a>"
-        :newline ->
-          "<div>\n</div>"
-        :skip ->
-          "<a>#{chars}</a>"
-        :reserved_atom ->
-          "<a style='color:#2a6edb;'>#{chars}</a>"
-        :reserved_operator ->
-          "<a style='color:violet;'>#{chars}</a>"
-        :reserved_fn ->
-          "<a style='color:violet;'>#{chars}</a>"
-        :reserved_block ->
-          "<a style='color:violet;'>#{chars}</a>"
-        :reserved_general ->
-          "<a style='color:violet;'>#{chars}</a>"
-        :operator ->
-        "<a style='color:red;'>#{chars}</a>"
-      end
-    end
-    )
+    list |> Enum.map(fn {token, _, chars} -> Style.edit(token, chars)
+    end)
 end
 
   def create_file(input_file, output_file) do

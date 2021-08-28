@@ -7,9 +7,5 @@ Benchee.run(
   inputs: %{
     "5" => "./codes/5files",
     "10" => "./codes/10files",
-    "20" => "./codes/20files",
-    "30" => "./codes/30files",
-    "40" => "./codes/40files",
-    "80" => "./codes/80files",
   }
 )
